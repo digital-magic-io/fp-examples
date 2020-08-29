@@ -18,31 +18,13 @@ console.assert(upperReverse('root') === 'TOOR')
 const last = compose(head, reverse)
 console.assert(last('xyz') === 'z')
 
+// First make it lower case, then substitute whitespaces with underscore
+const snakeCase = compose(replace(/\s+/ig)('_'), toLowerCase)
+console.assert(snakeCase('Test Tool') === 'test_tool')
 
+// More complicated example
+const capitalizeHead = compose(toUpperCase, head)
+const initials = compose(join('. '), compose(map(capitalizeHead), split(' ')))
+console.assert(initials('Ivan Dulin') === 'I. D')
 
-
-
-// Point free functions - functions that hide the data they are working with - more generic
-
-// not pointfree because we mention the data: word of type String
-const snakeCase1 = (word: String) => word.toLowerCase()
-  .replace(/\s+/ig, '_')
-console.assert(snakeCase1('Test Tool') === 'test_tool')
-
-// point free
-const snakeCase2 = compose(replace(/\s+/ig)('_'), toLowerCase)
-console.assert(snakeCase2('Test Tool') === 'test_tool')
-
-
-// not pointfree because we mention the data: name
-const initials1 = (name: String) => name.split(' ')
-  .map(compose(toUpperCase, head)).join('. ')
-console.assert(initials1('Ivan Dulin') === 'I. D')
-
-// pointfree
-const initials2 = compose(join('. '),
-  compose(map(compose(toUpperCase, head)), split(' ')))
-console.assert(initials2('Ivan Dulin') === 'I. D')
-
-// NB! Notice that we use only one test to ensure correctness of composition - we don't have to test invariants
-
+// But there are ways to make this code simpler!

@@ -1,4 +1,4 @@
-import { Eq } from 'fp-ts/Eq'
+import { Eq, getStructEq } from 'fp-ts/Eq'
 
 // Combinator: Eq type instance constructor based on equality function
 export function fromEquals<A>(equals: (x: A, y: A) => boolean): Eq<A> {
@@ -102,17 +102,6 @@ console.assert(eqPointI({ x: 1, y: 2 }, { x: 1, y: 2 }))
 
 
 
-// Let's define new combinator for this case
-function getStructEq<O extends Record<string, any>>(eqs: { [K in keyof O]: Eq<O[K]> }): Eq<O> {
-  return fromEquals((x, y) => {
-    for (const k in eqs) {
-      if (!eqs[k].equals(x[k], y[k])) {
-        return false
-      }
-    }
-    return true
-  })
-}
 
 // And here magic begins :)
 

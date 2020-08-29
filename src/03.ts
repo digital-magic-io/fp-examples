@@ -2,11 +2,6 @@ import { flatten, fromNullable, getOrElse, map, none, Option, some } from 'fp-ts
 import { findFirst, head } from 'fp-ts/Array'
 import { flow } from 'fp-ts/function'
 
-// Why nullability is a problem?
-// Because it is hard to compose statements that deal with null or undefined values
-
-// Most common example it searching for array element
-
 // tslint:disable-next-line:readonly-array
 const testArray: Array<number> = [1, 2, 3, 4, 5]
 
@@ -46,8 +41,7 @@ function multiplySearches(...values: ReadonlyArray<Option<number>>): number {
     .reduce((a, b) => a * b)
 }
 
-const findInTest = (value: number) =>
-  findFirst<number>(v => v === value)(testArray)
+const findInTest = (value: number) => findFirst<number>(v => v === value)(testArray)
 console.assert(multiplySearches(findInTest(3), findInTest(5)) === 15)
 // No big win yet?
 
@@ -103,13 +97,14 @@ console.assert(JSON.stringify(countryNamesI(users)) === JSON.stringify(['Estonia
 // ugly code, isn't it?
 
 // Functional approah:
-const prop = (key: any) => (obj: any) => fromNullable(obj[key])
+const prop = (key: any) => (obj: any): Option<any> => fromNullable(obj[key])
 
-const countryName = flow(
+const countryName: (p: Person) => Option<string> = flow(
   prop('addresses'),
   map(head),
   flatten,
   map(prop('country')),
   flatten
 )
+
 console.assert(JSON.stringify(users.map(countryName)) === JSON.stringify([some('Estonia'), some('Finland'), none, none, none]))
