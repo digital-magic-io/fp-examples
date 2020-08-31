@@ -2,6 +2,11 @@ export const elements: ReadonlyArray<any> = ['test', null, undefined, 1]
 
 export const notEmpty = (v: any) => v !== null && v !== undefined
 
+// filter
+const filter = (f: (v: any) => boolean) => (xs: ReadonlyArray<any>) => xs.filter(f)
+const compact = filter(notEmpty)
+console.assert(compact(elements).length === 2)
+
 // match
 const match = (pattern: RegExp) => (source: string) => source.match(pattern)
 const matchEmail = match(/^.*@.*$/g)
@@ -13,11 +18,6 @@ export const replace = (pattern: RegExp) => (replacement: string) => (source: st
 const replaceEmailSymbol = replace(/@/ig)
 const protectEmail = replaceEmailSymbol('[at]')
 console.assert(protectEmail('test@test.com') === 'test[at]test.com')
-
-// filter
-const filter = (f: (v: any) => boolean) => (xs: ReadonlyArray<any>) => xs.filter(f)
-const compact = filter(notEmpty)
-console.assert(compact(elements).length === 2)
 
 // map
 export const map = (f: (v: any) => any) => (xs: ReadonlyArray<any>) => xs.map(f)
