@@ -75,7 +75,7 @@ type Point = {
 }
 
 // Already familiar construction from last examples
-const eqPoint: Eq<Point> = getStructEq({
+const eqPoint: Eq<Point> = getStructEq<Point>({
   x: eqNumber,
   y: eqNumber
 })
@@ -91,7 +91,7 @@ const sumPoints = (p1: Point, p2: Point) => {
 console.assert(eqPoint.equals(sumPoints({ x: 1, y: 2 }, { x: 3, y: 4 }), { x: 4, y: 6 }))
 
 // Functional way (just use combinator like we did before)
-const semigroupPoint: Semigroup<Point> = getStructSemigroup({
+const semigroupPoint: Semigroup<Point> = getStructSemigroup<Point>({
   x: semigroupSum,
   y: semigroupSum
 })
@@ -104,12 +104,12 @@ type Vector = {
   readonly to: Point
 }
 
-const eqVector: Eq<Vector> = getStructEq({
+const eqVector: Eq<Vector> = getStructEq<Vector>({
   from: eqPoint,
   to: eqPoint
 })
 
-const semigroupVector: Semigroup<Vector> = getStructSemigroup({
+const semigroupVector: Semigroup<Vector> = getStructSemigroup<Vector>({
   from: semigroupPoint,
   to: semigroupPoint
 })
@@ -170,7 +170,7 @@ console.assert(E.equals(sumOpts.concat(some(1), some(2)), some(3)))
 // Another example with merging structures! For example we want to merge duplicate records using some strategy.
 
 
-interface Customer {
+type Customer = {
   readonly name: string
   // tslint:disable-next-line:readonly-array
   readonly favouriteThings: Array<string>
@@ -181,7 +181,7 @@ interface Customer {
 
 // We just need to use combinators that we've learned before!
 
-const semigroupCustomer: Semigroup<Customer> = getStructSemigroup({
+const semigroupCustomer: Semigroup<Customer> = getStructSemigroup<Customer>({
   // Keep longer name
   name: getJoinSemigroup(contramap((s: string) => s.length)(ordNumber)),
   // Join arrays

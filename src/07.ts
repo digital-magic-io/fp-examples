@@ -83,7 +83,7 @@ console.assert(E.equals(MF.concat(none, some(2)), some(2)))
 
 // Useful example: We must merge environment and user settings where user's ones override environment if set
 
-interface Settings {
+type Settings = {
   readonly language: Option<string> // 'en', 'ru', 'ee', etc.
   readonly timezone: Option<number> // +2, -2, etc.
   readonly twoFactorAuth: Option<boolean>
@@ -101,7 +101,7 @@ const userSettings: Settings = {
   twoFactorAuth: none
 }
 
-const monoidSettings: Monoid<Settings> = getStructMonoid({
+const monoidSettings: Monoid<Settings> = getStructMonoid<Settings>({
   language: getLastMonoid<string>(),
   timezone: getLastMonoid<number>(),
   twoFactorAuth: getLastMonoid<boolean>()

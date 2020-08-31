@@ -105,7 +105,7 @@ console.assert(eqPointI({ x: 1, y: 2 }, { x: 1, y: 2 }))
 
 // And here magic begins :)
 
-const eqPoint: Eq<Point> = getStructEq({
+const eqPoint: Eq<Point> = getStructEq<Point>({
   x: eqNumber, // compare x using eqNumber (Eq<number>)
   y: eqNumber  // compare y using eqNumber (Eq<number>)
 })
@@ -121,7 +121,7 @@ type Vector = {
   readonly to: Point;
 }
 
-const eqVector: Eq<Vector> = getStructEq({
+const eqVector: Eq<Vector> = getStructEq<Vector>({
   from: eqPoint,
   to: eqPoint
 })
