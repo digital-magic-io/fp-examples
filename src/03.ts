@@ -37,8 +37,7 @@ console.assert(multiplySearchesI(firstResult, testArray.find(v => v === 10)) ===
 
 // Let's redefine our function using Option:
 function multiplySearches(...values: ReadonlyArray<Option<number>>): number {
-  return values.map(getOrElse(() => 1))
-    .reduce((a, b) => a * b)
+  return values.map(getOrElse(() => 1)).reduce((a, b) => a * b)
 }
 
 const findInTest = (value: number) => findFirst<number>(v => v === value)(testArray)

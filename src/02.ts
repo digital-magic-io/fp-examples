@@ -27,4 +27,4 @@ const capitalizeHead = compose(toUpperCase, head)
 const initials = compose(join('. '), compose(map(capitalizeHead), split(' ')))
 console.assert(initials('Ivan Dulin') === 'I. D')
 
-// But there are ways to make this code simpler!
+// But there are ways to make this code even simpler!
