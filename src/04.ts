@@ -72,8 +72,8 @@ type Point = {
 }
 
 // Firstly check reference and then values
-const eqPoint_ = (a: Point, b: Point) => a === b || a.x === b.x && a.y === b.y
-console.assert(eqPoint_({ x: 1, y: 2 }, { x: 1, y: 2 }))
+const comparePoint = (a: Point, b: Point) => a === b || a.x === b.x && a.y === b.y
+console.assert(comparePoint({ x: 1, y: 2 }, { x: 1, y: 2 }))
 // Imagine 5 or more fields in a structure :)
 
 

@@ -80,7 +80,7 @@ const eqPoint: Eq<Point> = getStructEq<Point>({
   y: eqNumber
 })
 
-// Imperative way
+// Most of us would write like this
 const sumPoints = (p1: Point, p2: Point) => {
   return {
     x: p1.x + p2.x,
