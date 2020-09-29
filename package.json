@@ -10,7 +10,8 @@
     "04": "npx ts-node src/04.ts",
     "05": "npx ts-node src/05.ts",
     "06": "npx ts-node src/06.ts",
-    "07": "npx ts-node src/07.ts"
+    "07": "npx ts-node src/07.ts",
+    "08": "npx ts-node src/08.ts"
   },
   "author": "Jevgeni Goloborodko <jevgeni@digital-magic.io>",
   "license": "MIT",
